@@ -540,6 +540,25 @@ func (c *Client) AddressBalance(address string) (balance *Balance, err error) {
 	return
 }
 
+// ScripthashBalance will synchronously run a 'blockchain.scripthash.get_balance' operation
+//
+// https://electrumx.readthedocs.io/en/latest/protocol-methods.html#blockchain-scripthash-get-balance
+func (c *Client) ScripthashBalance(scripthash string) (balance *Balance, err error) {
+	res, err := c.syncRequest(c.req("blockchain.scripthash.get_balance", scripthash))
+	if err != nil {
+		return
+	}
+
+	if res.Error != nil {
+		err = errors.New(res.Error.Message)
+		return
+	}
+
+	b, _ := json.Marshal(res.Result)
+	json.Unmarshal(b, &balance)
+	return
+}
+
 // AddressHistory will synchronously run a 'blockchain.address.get_history' operation
 //
 // https://electrumx.readthedocs.io/en/latest/protocol-methods.html#blockchain-address-get-history
@@ -561,6 +580,25 @@ func (c *Client) AddressHistory(address string) (list *[]Tx, err error) {
 	if err = json.Unmarshal(b, &list); err != nil {
 		return
 	}
+	return
+}
+
+// ScripthashHistory will synchronously run a 'blockchain.scripthash.get_history' operation
+//
+// https://electrumx.readthedocs.io/en/latest/protocol-methods.html#blockchain-scripthash-get-history
+func (c *Client) ScripthashHistory(scripthash string) (list *[]Tx, err error) {
+	res, err := c.syncRequest(c.req("blockchain.scripthash.get_history", scripthash))
+	if err != nil {
+		return
+	}
+
+	if res.Error != nil {
+		err = errors.New(res.Error.Message)
+		return
+	}
+
+	b, _ := json.Marshal(res.Result)
+	json.Unmarshal(b, &list)
 	return
 }
 

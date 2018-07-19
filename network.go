@@ -119,7 +119,6 @@ func (t *transport) sendMessage(message []byte) error {
 	if !t.ready {
 		return ErrUnreachableHost
 	}
-
 	_, err := t.conn.Write(message)
 	return err
 }

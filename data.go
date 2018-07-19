@@ -1,6 +1,8 @@
 package electrum
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 // VersionInfo contains the version information returned by the server
 type VersionInfo struct {
@@ -110,7 +112,9 @@ func (r *request) encode() ([]byte, error) {
 	if r.RPC == "" {
 		r.RPC = "2.0"
 	}
+
 	b, err := json.Marshal(r)
+
 	if err != nil {
 		return nil, err
 	}

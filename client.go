@@ -414,8 +414,10 @@ func (c *Client) ServerVersion() (*VersionInfo, error) {
 		if err = json.Unmarshal(b, &d); err != nil {
 			return nil, err
 		}
-		info.Software = d[0]
-		info.Protocol = d[1]
+		if len(d) == 2 {
+			info.Software = d[0]
+			info.Protocol = d[1]
+		}
 	}
 	return info, nil
 }

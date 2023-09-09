@@ -214,6 +214,7 @@ func (c *Client) handleMessages() {
 				c.removeSubscription(i)
 			}
 			c.cleanUp()
+			c.transport.conn.Close()
 			c = &Client{}
 			c = nil
 			debug.FreeOSMemory()

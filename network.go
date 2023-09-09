@@ -160,7 +160,9 @@ LOOP:
 
 			if err != nil {
 				t.errors <- err
-				break
+				t.conn.Close()
+				t.state <- Closed
+				break LOOP
 			}
 			t.messages <- line
 		}

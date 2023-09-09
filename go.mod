@@ -1,1 +1,3 @@
-module github.com/fairbank-io/electrum
+module github.com/ksmithbaylor/electrum
+
+go 1.21.0
